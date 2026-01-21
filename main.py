@@ -2,11 +2,13 @@ import os
 import pandas as pd
 import pdfplumber
 
+
 def read_csv(path):
     df = pd.read_csv(path)
     print(f"CSV loaded: {df.shape[0]} rows x {df.shape[1]} columns")
     print("Columns:", ", ".join(df.columns))
     return df
+
 
 def read_pdf(path):
     text = ""
@@ -18,9 +20,10 @@ def read_pdf(path):
     print(f"PDF loaded: {len(text)} characters")
     return text
 
+
 def do_task(df_or_text, task):
     task = task.lower()
-    
+
     # CSV tasks
     if isinstance(df_or_text, pd.DataFrame):
         if "highest salary" in task:
@@ -41,7 +44,7 @@ def do_task(df_or_text, task):
                 print("\nSum of Salary:", total)
                 return
         print("Task not recognized or column missing.")
-    
+
     # PDF tasks (just basic search)
     elif isinstance(df_or_text, str):
         if "find" in task:
@@ -53,9 +56,10 @@ def do_task(df_or_text, task):
             return
         print("Task not recognized for PDF.")
 
+
 def main():
     print("=== Standalone PDF/CSV Processor ===")
-    
+
     # Step 1: ask for file path
     while True:
         path = input("Enter file path (CSV or PDF) or 'exit': ").strip()
@@ -81,6 +85,7 @@ def main():
             print("Exiting tasks. Goodbye!")
             break
         do_task(data, task)
+
 
 if __name__ == "__main__":
     main()
